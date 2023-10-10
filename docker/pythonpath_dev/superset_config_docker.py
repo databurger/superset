@@ -56,6 +56,23 @@ OAUTH_PROVIDERS = [
     },
 ]
 
+# Will allow user self registration, allowing to create Flask users from Authorized User
+#
+# Azure AD user login will create a new user in superset automatically.
+AUTH_USER_REGISTRATION = True
+
+# The default user self registration role
+AUTH_USER_REGISTRATION_ROLE = "Admin"
+
 APP_NAME = "m360 (Savista)"
 APP_ICON = "/static/assets/images/savista_logo.png"
 FAVICONS = [{"href": "/static/assets/images/favicon-32x32.png"}]
+
+# We use superset behind Azure application gateway (kinda "proxy"), we must follow:
+# https://superset.apache.org/docs/installation/configuring-superset/#configuration-behind-a-load-balancer
+#
+# > If the load balancer is inserting X-Forwarded-For/X-Forwarded-Proto headers, you should set ENABLE_PROXY_FIX = True in the superset config file (superset_config.py) to extract and use the headers.
+#
+# Client - https -> Azure AG - http -> superset (VM)
+# If not enable proxy fix, superset (handled by Flask app builder) will return oauth redirection uri with "http" (however "https" is expected).
+ENABLE_PROXY_FIX = True
