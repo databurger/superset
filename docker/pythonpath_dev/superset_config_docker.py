@@ -55,3 +55,7 @@ OAUTH_PROVIDERS = [
         },
     },
 ]
+
+APP_NAME = "m360 (Savista)"
+APP_ICON = "/static/assets/images/savista_logo.png"
+FAVICONS = [{"href": "/static/assets/images/favicon-32x32.png"}]
